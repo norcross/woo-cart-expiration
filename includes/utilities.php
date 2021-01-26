@@ -158,7 +158,9 @@ function clear_current_cart() {
 	global $woocommerce;
 
 	// Run the cart empty setup.
-	$woocommerce->cart->empty_cart();
+	foreach ( $woocommerce->cart->get_cart() as $cart_item_key => $cart_item ) {
+		$woocommerce->cart->remove_cart_item( $cart_item_key );
+	}
 
 	// Now recalc the totals.
 	$woocommerce->cart->calculate_totals();
